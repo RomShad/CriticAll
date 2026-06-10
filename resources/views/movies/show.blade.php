@@ -10,7 +10,7 @@
 <div class="container mt-4">
 
     <a href="/" class="btn btn-secondary mb-3">
-        ← Back to Catalogue
+        Return to Catalogue
     </a>
 
     <div class="card">
@@ -32,9 +32,51 @@
 
             <hr>
 
+            <h4>Add Review</h4>
+            <form method="POST" action="/movie/{{ $movie->id }}/review">
+                @csrf
+                <div class="mb-3">
+                    <label class="form-label">Rating (1-10)</label>
+                    <input type="number"
+                        name="rating"
+                        min="1"
+                        max="10"
+                        class="form-control"
+                        required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Review Text</label>
+                    <textarea name="text"
+                            class="form-control"
+                            rows="4"
+                            required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    Save Review
+                </button>
+            </form>
+            <hr>
             <h4>Reviews</h4>
+            @if($movie->reviews->count())
+                @foreach($movie->reviews as $review)
 
-            <p>No reviews yet.</p>
+                    <div class="card mb-3">
+                        <div class="card-body">
+
+                            <strong>Rating:</strong>
+                            {{ $review->rating }}/10
+
+                            <hr>
+
+                            {{ $review->text }}
+
+                        </div>
+                    </div>
+
+                @endforeach
+            @else
+                <p>No reviews yet.</p>
+            @endif
 
         </div>
     </div>
