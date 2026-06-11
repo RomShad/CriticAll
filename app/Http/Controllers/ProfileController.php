@@ -57,4 +57,25 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
+
+    public function reviews()
+    {
+        $user = auth()->user();
+
+        $reviews = $user->reviews()
+            ->with('movie')
+            ->latest()
+            ->get();
+
+        $reviewsCount = $user->reviews()->count();
+
+        $averageRating = $user->reviews()->avg('rating');
+
+        return view('profile.reviews', compact(
+            'user',
+            'reviews',
+            'reviewsCount',
+            'averageRating'
+        ));
+    }
 }

@@ -9,21 +9,30 @@ use Illuminate\Support\Facades\Auth;
 class ReviewController extends Controller
 {
     public function store(Request $request, $id)
-        {
-            $request->validate([
-                'rating' => 'required|integer|min:1|max:10',
-                'text' => 'required|string|max:1000'
-            ]);
+    {
+        $request->validate([
+            'rating' => 'required|integer|min:1|max:10',
+            'text' => 'required|string|max:1000'
+        ]);
 
-            Review::create([
-                'movie_id' => $id,
-                'user_id' => Auth::id(),
-                'rating' => $request->rating,
-                'text' => $request->text
-            ]);
+        $exists = Review::where('user_id', Auth::id())
+            ->where('movie_id', $id)
+            ->exists();
 
-            return redirect()->back();
+        if ($exists) {
+            return redirect()->back()
+                ->with('error', 'You have already reviewed this movie.');
         }
+
+        Review::create([
+            'movie_id' => $id,
+            'user_id' => Auth::id(),
+            'rating' => $request->rating,
+            'text' => $request->text
+        ]);
+
+        return redirect()->back();
+    }
     
     public function edit($id)
         {
