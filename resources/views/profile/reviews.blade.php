@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>My Reviews</title>
+    <title>{{ __('messages.my_profile') }}</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 </head>
@@ -13,34 +13,43 @@
         Return to Catalogue
     </a>
 
-    <h1>My Profile</h1>
+    <a href="/friends"class="btn btn-warning mb-3">
+        {{ __('messages.friend_list') }}
+    </a>
+
+    <a href="/lists" class="btn btn-success mb-3">
+        {{ __('messages.my_lists') }}
+    </a>
+
+
+    <h1>{{ __('messages.my_profile') }}</h1>
 
     <hr>
 
     <p>
-        <strong>Name:</strong>
+        <strong>{{ __('messages.name') }}:</strong>
         {{ $user->name }}
     </p>
 
     <p>
-        <strong>Email:</strong>
+        <strong>{{ __('messages.email') }}:</strong>
         {{ $user->email }}
     </p>
 
     <hr>
 
     <p>
-        <strong>Reviews Written:</strong>
+        <strong>{{ __('messages.reviews_written') }}:</strong>
         {{ $reviewsCount }}
     </p>
 
     <p>
-        <strong>Average Rating Given:</strong>
+        <strong>{{ __('messages.average_rating_given') }}:</strong>
         {{ number_format($averageRating ?? 0, 1) }}/10
     </p>
 
     <p>
-        <strong>Member Since:</strong>
+        <strong>{{ __('messages.member_since') }}:</strong>
         {{ $user->created_at->format('d.m.Y') }}
     </p>
 
@@ -48,7 +57,7 @@
 
     <hr>
 
-    <h3>My Reviews</h3>
+    <h3>{{ __('messages.my_reviews') }}</h3>
 
     @forelse($reviews as $review)
 
@@ -58,7 +67,7 @@
                 <h5>{{ $review->movie->title }}</h5>
 
                 <p>
-                    Rating: {{ $review->rating }}/10
+                    {{ __('messages.rating') }}: {{ $review->rating }}/10
                 </p>
 
                 <p>
@@ -74,7 +83,7 @@
 
     @empty
 
-        <p>You have not written any reviews yet.</p>
+        <p>{{ __('messages.no_user_reviews') }}</p>
 
     @endforelse
 

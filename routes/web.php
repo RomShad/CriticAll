@@ -9,6 +9,41 @@ use App\Http\Controllers\MovieController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ReactionController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\FollowController;  
+use App\Http\Controllers\MovieListController;
+
+
+
+Route::middleware('auth')->group(function () {
+
+    Route::get(
+        '/lists',
+        [MovieListController::class, 'index']
+    );
+
+    Route::get(
+        '/lists/create',
+        [MovieListController::class, 'create']
+    );
+
+    Route::post(
+        '/lists',
+        [MovieListController::class, 'store']
+    );
+
+    Route::delete(
+        '/lists/{id}',
+        [MovieListController::class, 'destroy']
+    );
+
+    
+});
+
+
+Route::get('/users/search', [UserController::class, 'search']);
+Route::get('/users/{id}', [UserController::class, 'show']);
+Route::get('/friends', [UserController::class, 'friends'])->middleware('auth');
 
 Route::get('/', [MovieController::class, 'index']);
 Route::get('/movie/{id}', [MovieController::class, 'show']);
@@ -60,7 +95,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard']);
     Route::get('/my-reviews', [ProfileController::class, 'reviews']);
 
+    Route::get('/activity',[UserController::class, 'activity']);
+
     Route::post('/movie/{id}/poster', [MovieController::class, 'uploadPoster']);
+    Route::post('/users/{id}/follow', [FollowController::class, 'follow']);
+    Route::post('/users/{id}/unfollow', [FollowController::class, 'unfollow']);
 });
 
 Route::get('/dashboard', function () {

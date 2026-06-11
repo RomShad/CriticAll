@@ -34,7 +34,7 @@
                     class="form-control mb-2">
 
                 <button type="submit" class="btn btn-primary">
-                    Upload Poster
+                    {{ __('messages.upload_poster') }}
                 </button>
 
             </form>
@@ -61,12 +61,12 @@
             </p>
 
             <p>
-                <strong>Average Rating:</strong>
+                <strong>{{ __('messages.average_rating') }}:</strong>
                 {{ number_format($averageRating, 1) }}/10
             </p>
 
             <p>
-                <strong>Reviews Count:</strong>
+                <strong>{{ __('messages.reviews_count') }}:</strong>
                 {{ $movie->reviews->count() }}
             </p>
 
@@ -150,7 +150,7 @@
 
                             <br><br>
 
-                            <h6>Comments</h6>
+                            <h6>{{ __('messages.comments') }}</h6>
 
                             @foreach($review->comments as $comment)
 
@@ -181,7 +181,7 @@
 
                                             <button type="submit"
                                                     class="btn btn-sm btn-danger mt-2">
-                                                Delete
+                                                {{ __('messages.delete') }}
                                             </button>
 
                                         </form>
@@ -239,14 +239,14 @@
                                         name="text"
                                         class="form-control"
                                         rows="2"
-                                        placeholder="Write comment..."
+                                        placeholder="{{ __('messages.write_comment') }}"
                                         required></textarea>
 
                                 </div>
 
                                 <button type="submit"
                                         class="btn btn-sm btn-primary">
-                                    Add Comment
+                                    {{ __('messages.add_comment') }}
                                 </button>
 
                             </form>

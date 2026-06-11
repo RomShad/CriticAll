@@ -30,7 +30,7 @@ class MovieController extends Controller
             $query->orderBy('release_year', 'desc');
         }
 
-        $movies = $query->get();
+        $movies = $query->paginate(8);
 
         $topMovies = Movie::withAvg('reviews', 'rating')
             ->orderByDesc('reviews_avg_rating')

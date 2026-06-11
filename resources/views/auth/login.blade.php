@@ -1,7 +1,9 @@
 <x-guest-layout>
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
-
+    <pre>
+    {{ print_r($errors->all(), true) }}
+    </pre>
     <form method="POST" action="{{ route('login') }}">
         @csrf
 
@@ -9,6 +11,11 @@
         <div>
             <x-input-label for="email" :value="__('Email')" />
             <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
+            @error('email')
+                <div class="text-danger mt-2">
+                    {{ $message }}
+                </div>
+            @enderror
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 

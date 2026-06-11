@@ -12,9 +12,14 @@ class Movie extends Model
         return $this->hasMany(Review::class);
     }
 
-    public function lists()
+    public function movieLists()
     {
-        return $this->belongsToMany(MovieList::class, 'list_movies');
+        return $this->belongsToMany(
+            MovieList::class,
+            'list_movies',
+            'movie_id',
+            'list_id'
+        );
     }
 
     protected $fillable = [

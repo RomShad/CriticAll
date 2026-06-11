@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Admin Dashboard</title>
+    <title>{{ __('messages.admin_dashboard') }}</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
@@ -9,7 +9,7 @@
 
 <div class="container mt-5">
 
-    <h1>Admin Dashboard</h1>
+    <h1>{{ __('messages.admin_dashboard') }}</h1>
 
     <div class="row">
 
@@ -17,7 +17,7 @@
             <div class="card">
                 <div class="card-body">
                     <h3>{{ $usersCount }}</h3>
-                    Users
+                    {{ __('messages.users') }}
                 </div>
             </div>
         </div>
@@ -26,7 +26,7 @@
             <div class="card">
                 <div class="card-body">
                     <h3>{{ $moviesCount }}</h3>
-                    Movies
+                    {{ __('messages.movies') }}
                 </div>
             </div>
         </div>
@@ -35,7 +35,7 @@
             <div class="card">
                 <div class="card-body">
                     <h3>{{ $reviewsCount }}</h3>
-                    Reviews
+                    {{ __('messages.reviews') }}
                 </div>
             </div>
         </div>
@@ -44,7 +44,7 @@
             <div class="card">
                 <div class="card-body">
                     <h3>{{ $commentsCount }}</h3>
-                    Comments
+                    {{ __('messages.comments') }}
                 </div>
             </div>
         </div>
@@ -53,7 +53,7 @@
             <div class="card">
                 <div class="card-body">
                     <h3>{{ $reactionsCount }}</h3>
-                    Reactions
+                    {{ __('messages.reactions') }}
                 </div>
             </div>
         </div>

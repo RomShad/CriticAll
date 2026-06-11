@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Users</title>
+    <title>{{ __('messages.users') }}</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
@@ -9,15 +9,15 @@
 
 <div class="container mt-4">
 
-    <h1>Users</h1>
+    <h1>{{ __('messages.users') }}</h1>
 
     <table class="table">
 
         <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Role</th>
-            <th>Blocked</th>
+            <th>{{ __('messages.name') }}</th>
+            <th>{{ __('messages.email') }}</th>
+            <th>{{ __('messages.role') }}</th>
+            <th>{{ __('messages.blocked') }}</th>
         </tr>
 
         <th>Action</th>
@@ -40,11 +40,11 @@
 
                         @if($user->is_blocked)
                             <button class="btn btn-success">
-                                Unblock
+                                {{ __('messages.unblock') }}
                             </button>
                         @else
                             <button class="btn btn-danger">
-                                Block
+                                {{ __('messages.block') }}
                             </button>
                         @endif
 

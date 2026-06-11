@@ -6,17 +6,31 @@
 <head>
     <div class="mb-3">
         @auth
+
             <a href="/my-reviews" class="btn btn-primary">
-                My Profile
+                {{ __('messages.my_profile') }}
             </a>
 
-            <form method="POST" action="{{ route('logout') }}" style="display:inline;">
+            <a href="/users/search" class="btn btn-info">
+                {{ __('messages.search_users') }}
+            </a>
+
+            <a href="/activity" class="btn btn-warning">
+                {{ __('messages.friend_activity') }}
+            </a>
+
+            <form method="POST"
+                action="{{ route('logout') }}"
+                style="display:inline;">
                 @csrf
-                <button type="submit" class="btn btn-danger">
-                    Logout
+                <button type="submit"
+                        class="btn btn-danger">
+                    {{ __('messages.logout') }}
                 </button>
             </form>
+
         @else
+
             <button class="btn btn-primary"
                     data-bs-toggle="modal"
                     data-bs-target="#loginModal">
@@ -28,7 +42,7 @@
                     data-bs-target="#registerModal">
                 {{ __('messages.register') }}
             </button>
-            <a href="/my-reviews" class="btn btn-info"> My Reviews </a>
+
         @endauth
     </div>
     <title>CriticAll</title>
@@ -45,7 +59,7 @@
                     type="text"
                     name="search"
                     class="form-control"
-                    placeholder="Search movie..."
+                    placeholder="{{ __('messages.search_movie') }}"
                     value="{{ request('search') }}">
             </div>
             <div class="col-md-3">
@@ -53,16 +67,16 @@
                     name="sort"
                     class="form-select">
                     <option value="">
-                        Sort By
+                        {{ __('messages.sort_by') }}
                     </option>
                     <option value="title">
-                        Title
+                        {{ __('messages.title') }}
                     </option>
                     <option value="genre">
-                        Genre
+                        {{ __('messages.genre') }}
                     </option>
                     <option value="year">
-                        Release Year
+                        {{ __('messages.year') }}
                     </option>
                 </select>
             </div>
@@ -73,7 +87,7 @@
                     type="submit"
                     class="btn btn-primary">
 
-                    Search
+                    {{ __('messages.search') }}
 
                 </button>
 
@@ -88,7 +102,7 @@
         <div class="card mb-4">
             <div class="card-body">
 
-                <h3>Top Rated Movies</h3>
+                <h3>{{ __('messages.top_rated_movies') }}</h3>
 
                 <ol>
                     @foreach($topMovies as $movie)
@@ -136,6 +150,10 @@
         @endforeach
     </div>
 
+    <div class="mt-3">
+        {{ $movies->links() }}
+    </div>
+
     <div class="modal fade" id="loginModal">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -148,6 +166,12 @@
                 </div>
 
                 <div class="modal-body">
+
+                    @if($errors->has('email'))
+                        <div class="alert alert-danger">
+                            {{ $errors->first('email') }}
+                        </div>
+                    @endif
 
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
@@ -172,7 +196,6 @@
                                 class="btn btn-primary">
                             Login
                         </button>
-
                     </form>
 
                 </div>
@@ -242,6 +265,17 @@
 </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 {{ app()->getLocale() }}
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+@if($errors->has('email'))
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    var loginModal = new bootstrap.Modal(
+        document.getElementById('loginModal')
+    );
+
+    loginModal.show();
+});
+</script>
+@endif
+
 </body>
 </html>

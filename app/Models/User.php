@@ -44,6 +44,7 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'is_blocked' => 'boolean',
         ];
     }
 
@@ -60,5 +61,15 @@ class User extends Authenticatable
     public function movieLists()
     {
         return $this->hasMany(MovieList::class);
+    }
+    
+    public function following()
+    {
+        return $this->belongsToMany(
+            User::class,
+            'follows',
+            'follower_id',
+            'following_id'
+        );
     }
 }
