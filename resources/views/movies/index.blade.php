@@ -1,6 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <div class="mb-3">
+        @auth
+            <a href="/dashboard" class="btn btn-primary">Dashboard</a>
+
+            <form method="POST" action="{{ route('logout') }}" style="display:inline;">
+                @csrf
+                <button type="submit" class="btn btn-danger">
+                    Logout
+                </button>
+            </form>
+        @else
+            <a href="/login" class="btn btn-primary">Login</a>
+            <a href="/register" class="btn btn-success">Register</a>
+        @endauth
+    </div>
     <title>CriticAll</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">

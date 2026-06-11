@@ -31,7 +31,7 @@
             </p>
 
             <hr>
-
+            @auth
             <h4>Add Review</h4>
             <form method="POST" action="/movie/{{ $movie->id }}/review">
                 @csrf
@@ -55,6 +55,12 @@
                     Save Review
                 </button>
             </form>
+            @endauth
+            @guest
+                <div class="alert alert-warning">
+                    Please log in to leave a review.
+                </div>
+            @endguest
             <hr>
             <h4>Reviews</h4>
             @if($movie->reviews->count())
@@ -63,13 +69,48 @@
                     <div class="card mb-3">
                         <div class="card-body">
 
+                            <strong>
+                                {{ $review->user->name }}
+                            </strong>
+
+                            <br><br>
+
                             <strong>Rating:</strong>
                             {{ $review->rating }}/10
 
                             <hr>
 
                             {{ $review->text }}
+                            <hr>
 
+                            @if(
+                                Auth::check() &&
+                                (
+                                    Auth::id() == $review->user_id ||
+                                    Auth::user()->role == 'admin'
+                                )
+                            )
+
+                                <a href="/review/{{ $review->id }}/edit"
+                                class="btn btn-warning">
+                                    Edit
+                                </a>
+
+                                <form method="POST"
+                                    action="/review/{{ $review->id }}"
+                                    class="d-inline">
+
+                                    @csrf
+                                    @method('DELETE')
+
+                                    <button type="submit"
+                                            class="btn btn-danger">
+                                        Delete
+                                    </button>
+
+                                </form>
+
+                            @endif
                         </div>
                     </div>
 
